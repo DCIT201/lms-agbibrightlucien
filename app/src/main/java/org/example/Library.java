@@ -7,59 +7,44 @@ public class Library {
     private List<Patron> patrons;
 
     public Library() {
-        books = new ArrayList<>();
-        patrons = new ArrayList<>();
+        this.books = new ArrayList<>();
+        this.patrons = new ArrayList<>();
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public List<Patron> getPatrons() {
-        return patrons;
-    }
-
-    public void setPatrons(List<Patron> patrons) {
-        this.patrons = patrons;
-    }
-
+    // Adding a book to the library
     public void addBook(Book book) {
         books.add(book);
     }
 
-    public List<Book> searchByTitle(String title) {
-        List<Book> results = new ArrayList<>();
+    // Adding a patron to the library
+    public void addPatron(Patron patron) {
+        patrons.add(patron);
+    }
+
+    // Finding a book by title
+    public Book findBookByTitle(String title) {
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) {
-                results.add(book);
+                return book;
             }
         }
-        return results;
+        return null; // Return null if not found
     }
 
-    public boolean borrowBook(String isbn, Patron patron) {
+    // Finding books by an author
+    public List<Book> findBooksByAuthor(String author) {
+        List<Book> result = new ArrayList<>();
         for (Book book : books) {
-            if (book.getIsbn().equals(isbn) && book.isAvailable()) {
-                book.setAvailable(false);
-                patron.getBorrowedBooks().add(book);
-                return true;
+            if (book.getAuthor().equalsIgnoreCase(author)) {
+                result.add(book);
             }
         }
-        return false;
+        return result;
     }
 
-    public boolean returnBook(String isbn, Patron patron) {
-        for (Book book : patron.getBorrowedBooks()) {
-            if (book.getIsbn().equals(isbn)) {
-                book.setAvailable(true);
-                patron.getBorrowedBooks().remove(book);
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public String toString() {
+        return "Library [Books=" + books + ", Patrons=" + patrons + "]";
     }
 }
+
