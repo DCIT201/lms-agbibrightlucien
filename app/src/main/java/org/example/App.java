@@ -2,41 +2,33 @@
  * This should be your main class where all your objects will be created
  */
 package org.example;
+
 public class App {
     public static void main(String[] args) {
-        // Create a library object
+        // Creating an object for the Book class
+        Book book = new Book("1984", "George Orwell", 1949);
+
+        // Creating an object for the Patron class
+        Patron patron = new Patron("Bless Kofi", "22040340");
+
+        // Creating an object for the Library class
         Library library = new Library();
 
-        // Add books to the library
-        Book book1 = new Book("Java Programming", "John Doe", "123456", true);
-        Book book2 = new Book("Data Structures", "Jane Smith", "789101", true);
-        library.addBook(book1);
-        library.addBook(book2);
+        // Adding the book to the library
+        library.addBook(book);
 
-        // Create a patron
-        Patron patron = new Patron("Bright", "P001");
+        // Adding the patron to the library
+        library.addPatron(patron);
 
-        // Borrow a book
-        boolean borrowSuccess = library.borrowBook("123456", patron);
-        if (borrowSuccess) {
-            System.out.println(patron.getName() + " successfully borrowed the book: " + book1.getTitle());
-        } else {
-            System.out.println("The book is not available for borrowing.");
-        }
+        // Searching for a book by its title
+        System.out.println("Search by title: " + library.findBookByTitle("1984"));
 
-        // Display borrowed books
-        System.out.println("Books borrowed by " + patron.getName() + ":");
-        for (Book book : patron.getBorrowedBooks()) {
-            System.out.println("- " + book.getTitle());
-        }
+        // Searching for books by author
+        System.out.println("Search by author: " + library.findBooksByAuthor("George Orwell"));
 
-        // Return a book
-        boolean returnSuccess = library.returnBook("123456", patron);
-        if (returnSuccess) {
-            System.out.println(patron.getName() + " successfully returned the book: " + book1.getTitle());
-        } else {
-            System.out.println("Failed to return the book.");
-        }
+        // Displaying all books and patrons
+        System.out.println("\nLibrary Details:");
+        System.out.println(library);
     }
 }
 
